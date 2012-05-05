@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CloudFlare Apps Spec Runner</title>
+
+        <link rel="stylesheet" type="text/css" href="jasmine/jasmine.css">
+        <script type="text/javascript" src="jasmine/jasmine.js"></script>
+        <script type="text/javascript" src="jasmine/jasmine-module.js"></script>
+        <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+
+        <script type="text/javascript" src="http://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
+        <script type="text/javascript">
+            CloudFlare.push(function(require) {
+
+                require(['cloudflare/loader', 'cloudflare/path'], function(loader, path) {
+                    loader.ajax({
+                        url: '/cloudflare.json',
+                        complete: function(data) {
+                            var json = JSON.parse(data);
+                            var bits = json.main.split("/")
+                            bits.pop();
+
+                            CloudFlare.push({
+                                paths:{sample_app: "/" + bits.join("/")}
+                            })
+                            window.define = CloudFlare.define;
+                            window.require = CloudFlare.require;
+                            CloudFlare.require(["/test/sample-spec.js"], function(){
+                                jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+
+                                function runIfReady(){
+                                    var env = jasmine.getEnv();
+                                    if (env.modulesReady === env.moduleCount) {
+                                        env.execute()
+                                    } else {
+                                        jasmine.setTimeout(runIfReady, 100)
+                                    }
+                                }
+                                runIfReady();
+                                window.env = jasmine.getEnv();
+                            })
+                        },
+                        error: function() { console.log('Error loading cloudflare.json') }
+                    });
+                })
+            })
+        </script>
+    </head>
+</html>

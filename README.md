@@ -28,3 +28,4 @@ and [the dnschanger_detector cloudflare.md](https://github.com/cloudflare/dnscha
 CloudFlare does not require you to provide any tests. This repository contains a sample suite
 in case you are interested in one way to build tests for cloudflare.js modules.
 
+To run the sample suite, boot up a webserver with the root of this repository as the document root, and open suite.html.
