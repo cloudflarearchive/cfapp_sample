@@ -28,4 +28,30 @@ and [the dnschanger_detector cloudflare.md](https://github.com/cloudflare/dnscha
 CloudFlare does not require you to provide any tests. This repository contains a sample suite
 in case you are interested in one way to build tests for cloudflare.js modules.
 
-To run the sample suite, boot up a webserver with the root of this repository as the document root, and open suite.html.
+To run the sample suite, boot up a webserver with the root of this repository as the document root, and open test/suite.html.
+
+##modules of interest.
+
+CloudFlare has a set of modules that you can use when writing apps
+
+###cloudflare/dom
+
+A dom manipulation library similar to browser methods, but more generic
+
+###cloudflare/path
+
+Tools for parsing where the page is
+
+###cloudflare/loader
+
+An AJAX wrapper that behaves similarly to jquery.ajax
+
+###cloudflare/config
+
+General information about the site your module is running on
+
+##Interface
+
+You can specify an interface in your cloudflare.json for site owners to use to
+configure your application. The results of that configuration are available in
+"your_app/config"
