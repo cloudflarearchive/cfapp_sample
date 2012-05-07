@@ -1,3 +1,4 @@
 {
-    "main":"public/javascripts/sample_app.js"
+    "main":"public/javascripts/sample_app.js",
+    "name":"Sample App"
 }

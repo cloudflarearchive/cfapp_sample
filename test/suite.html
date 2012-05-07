@@ -26,6 +26,11 @@
                             })
                             window.define = CloudFlare.define;
                             window.require = CloudFlare.require;
+
+                            CloudFlare.define("app_json", [], function(){
+                                return json;
+                            })
+
                             CloudFlare.require(["/test/sample-spec.js"], function(){
                                 jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
 
