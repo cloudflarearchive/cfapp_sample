@@ -57,6 +57,28 @@ describe(["app_json"], function(json){
 
             })
         })
+        describe("assets", function(){
+            describe("logos", function(){
+                beforeEach(function(){
+                    this.logos = json.config.assets.logos
+                })
+                it("should have a 132px logo", function(){
+                    var img = new Image();
+                    img.src = "/" + this.logos["132px"]
+                    waitsFor(function(){
+                        return img.width == 132
+                    }, 100)
+                })
+                it("should have a 200px logo", function(){
+                    var img = new Image();
+                    img.src = "/" + this.logos["200px"]
+                    waitsFor(function(){
+                        return img.width == 200
+                    }, 100)
+                })
+
+            })
+        })
     })
 
 })
