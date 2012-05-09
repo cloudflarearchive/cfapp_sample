@@ -76,7 +76,18 @@ describe(["app_json"], function(json){
                         return img.width == 200
                     }, 100)
                 })
-
+            })
+            describe("detail page", function(){
+                for (var i in json.config.assets.detail_page){
+                    var image = json.config.assets.detail_page[i]
+                    it(image + " should be legit", function(){
+                        var img = new Image();
+                        img.src = "/" + image
+                        waitsFor(function(){
+                            return (img.width > 0 && img.height > 0)
+                        }, 100)
+                    })
+                }
             })
         })
     })
