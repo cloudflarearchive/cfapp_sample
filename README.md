@@ -104,11 +104,11 @@ The website owner sets up an App in their [CloudFlare Apps dashboard](https://ww
 
 The simplest configuration requires nothing: the App may be turned On or Off, nothing more. Example: A Better Browser
 
-![On-Off only](./doc/on-off-no-configuration.png "A Better Browser example - just On and Off")
+![On-Off only](./cfapp_sample/raw/master/doc/on-off-no-configuration.png "A Better Browser example - just On and Off")
 
 More configuration is possible. Example: Trumpet.
 
-![String example](./doc/string-configuration-example.png "Trumpet example - string config")
+![String example](./cfapp_sample/raw/master/doc/string-configuration-example.png "Trumpet example - string config")
 
 
 You can specify an interface in your cloudflare.json for site owners to use to configure your application. The results of that configuration are available in
