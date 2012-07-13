@@ -2,7 +2,11 @@
     "main":"public/javascripts/sample_app.js",
     "name":"Sample App",
     "description": "A sample application to get you started with CloudFlare apps",
-    "version": "0.0.1",
+    "version": "0.0.2a",
+    "account": {
+        "callback_url": "https://localhost:3000/api",
+        "user_fields": ["email"]
+    },
     "config":{
         "details":{
             "Price": "priceless",
@@ -18,6 +22,12 @@
             ]
         },
         "interface": [
+            {
+                "type": "string",
+                "name": "food",
+                "description": "Please tell us your favorite food.",
+                "domain_request": true
+            },
             {
                 "id": "lottery",
                 "type": "select",
