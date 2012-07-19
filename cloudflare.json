@@ -2,9 +2,9 @@
     "main":"public/javascripts/sample_app.js",
     "name":"Sample App",
     "description": "A sample application to get you started with CloudFlare apps",
-    "version": "0.0.2a",
+    "version": "0.0.2b",
     "account": {
-        "callback_url": "https://localhost:3000/api",
+        "callback_url": "http://10.0.2.2:3000/api",
         "user_fields": ["email"]
     },
     "config":{
@@ -24,8 +24,9 @@
         "interface": [
             {
                 "type": "string",
-                "name": "food",
+                "name": "Favorite Food",
                 "description": "Please tell us your favorite food.",
+                "id": "food",
                 "domain_request": true
             },
             {

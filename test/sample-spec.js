@@ -37,7 +37,7 @@ describe(["app_json"], function(json){
         describe("interface", function(){
             describe("select", function(){
                 beforeEach(function(){
-                    this.select = json.config.interface[0]
+                    this.select = json.config.interface[1]
                 })
                 it("should have an id", function(){
                     expect(this.select.id).toEqual("lottery")
@@ -56,6 +56,22 @@ describe(["app_json"], function(json){
                 })
 
             })
+            describe("string", function(){
+                beforeEach(function(){
+                    this.select = json.config.interface[0]
+                })
+                it("should have an id", function(){
+                    expect(this.select.id).toEqual("food")
+                })
+                it("should have a name and description", function(){
+                    expect(this.select.name).toBeDefined()
+                    expect(this.select.description).toBeDefined()
+                })
+                it("should claim to be a select", function(){
+                    expect(this.select.type).toEqual("string")
+                })
+            })
+
         })
         describe("assets", function(){
             describe("logos", function(){
