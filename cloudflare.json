@@ -4,7 +4,7 @@
     "description": "A sample application to get you started with CloudFlare apps",
     "version": "0.0.2b",
     "account": {
-        "callback_url": "http://10.0.2.2:3000/api",
+        "callback_url": "http://10.0.2.2:5000/api",
         "user_fields": ["email"]
     },
     "config":{
