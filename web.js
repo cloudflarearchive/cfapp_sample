@@ -11,7 +11,7 @@ var conn_string = process.env.DATABASE_URL || "tcp://michael:1234@localhost/mich
 function create_account(account_id, respond){
     pg.connect(conn_string, function(err, client) {
         console.log(err)
-        var query = client.query('insert into account(account_id) values ('+account_id+')');
+        var query = client.query('insert into account(account_id) values ($1)',[account_id]);
 
         query.on('end', function() {
             respond("approve");
@@ -26,7 +26,7 @@ function create_account(account_id, respond){
 function create_domain(body, respond){
     pg.connect(conn_string, function(err, client) {
         console.log(err)
-        var query = client.query('insert into domain(account_id, domain_id) values ('+body.account_id+','+body.domain_id+')');
+        var query = client.query('insert into domain(account_id, domain_id) values ($1, $2)', [body.account_id,body.domain_id]);
 
         query.on('end', function() {
             respond("approve");
@@ -38,6 +38,28 @@ function create_domain(body, respond){
             respond("error");
         });
     });
+}
+
+function log_hit(domain_id, respond){
+    pg.connect(conn_string, function(err, client) {
+        console.log(err)
+        var query = client.query('insert into hit(domain_id) values ($1)', [domain_id]);
+
+        query.on('end', function() {
+            var query2 = client.query('select count(*) from hit where domain_id =  $1', [domain_id]);
+            query2.on('end', function() {
+                console.log(query2);
+                respond("0");
+            });
+        });
+
+        query.on('error', function(something) {
+            console.log(domain_id)
+            console.log(something);
+            respond("0");
+        });
+    });
+
 }
 
 function valid(req) {
@@ -79,6 +101,16 @@ app.post('/api/domains', function(request, response) {
         create_domain(request.body, respond);
     };
 });
+
+app.post('/hit', function(request, response) {
+    var respond = function(count){
+        response.send(JSON.stringify({
+            count : count
+        }));
+    }
+    log_hit(request.body.domain_id, respond);
+});
+
 
 var port = 3000 || process.env.PORT || 5000;
 app.listen(port, function() {
