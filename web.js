@@ -7,6 +7,7 @@ var app = express.createServer(express.logger());
 app.use(express.bodyParser());
 
 var conn_string = process.env.DATABASE_URL || "tcp://michael:1234@localhost/michael";
+var skip_hmac = process.env.SKIP_HMAC
 
 function create_account(account_id, respond){
     pg.connect(conn_string, function(err, client) {
@@ -33,9 +34,7 @@ function create_domain(body, respond){
         });
 
         query.on('error', function(something) {
-            console.log(body)
-            console.log(something);
-            respond("error");
+            respond("error: " + something.detail);
         });
     });
 }
@@ -63,6 +62,7 @@ function log_hit(domain_id, respond){
 }
 
 function valid(req) {
+    if (skip_hmac) return true;
     var hmac_secret = '09aed14f2a579b0f50965418c67b600d';
     var hmac = crypto.createHmac("sha256", hmac_secret);
     var contents = JSON.stringify(req.body);
@@ -86,8 +86,10 @@ app.post('/api/accounts', function(request, response) {
 app.post('/api/domains', function(request, response) {
     if (!valid(request)) {
         response.send("Bad HMAC");
+        response.status(433);
     } else {
-        var respond = function(status){
+        var respond = function(status, code){
+            response.status(code || 200);
             if (status == 'error') {
                 response.send("error");
             } else {
