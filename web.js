@@ -88,6 +88,7 @@ function log_hit(domain_id, respond){
 }
 
 function valid(req) {
+    // console.log(req.body)
     if (skip_hmac) return true;
     var hmac_secret = '09aed14f2a579b0f50965418c67b600d';
     var hmac = crypto.createHmac("sha256", hmac_secret);
