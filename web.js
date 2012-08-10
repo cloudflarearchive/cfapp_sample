@@ -12,14 +12,27 @@ var skip_hmac = process.env.SKIP_HMAC
 function create_account(account_id, respond){
     pg.connect(conn_string, function(err, client) {
         console.log(err)
-        var query = client.query('insert into account(account_id) values ($1)',[account_id]);
-
-        query.on('end', function() {
-            respond("approve");
+        var query = client.query('select count(*) from account where account_id = $1',[account_id]);
+        query.on('error', function() {
+            console.log(query)
+            respond("BADNESS", 500);
         });
 
-        query.on('error', function() {
-            respond("approve");
+        query.on('row', function(row) {
+            if (row.count) {
+                respond("exists")
+            } else {
+                var query2 = client.query('insert into account(account_id) values ($1)',[account_id]);
+
+                query2.on('end', function() {
+                    respond("approve");
+                });
+
+                query2.on('error', function() {
+                    console.log(query2)
+                    respond("BADNESS", 500);
+                });
+            }
         });
     });
 }
@@ -27,14 +40,27 @@ function create_account(account_id, respond){
 function create_domain(body, respond){
     pg.connect(conn_string, function(err, client) {
         console.log(err)
-        var query = client.query('insert into domain(account_id, domain_id) values ($1, $2)', [body.account_id,body.domain_id]);
-
-        query.on('end', function() {
-            respond("approve");
+        var query = client.query('select count(*) from domain where account_id = $1 and domain_id = $2',[body.account_id, body.domain_id]);
+        query.on('error', function() {
+            console.log(query)
+            respond("BADNESS", 500);
         });
 
-        query.on('error', function(something) {
-            respond("error: " + something.detail);
+        query.on('row', function(row) {
+            if (row.count) {
+                respond("exists")
+            } else {
+
+                var query = client.query('insert into domain(account_id, domain_id) values ($1, $2)', [body.account_id,body.domain_id]);
+
+                query.on('end', function() {
+                    respond("approve");
+                });
+
+                query.on('error', function(something) {
+                    respond("error: " + something.detail);
+                });
+            }
         });
     });
 }
@@ -73,13 +99,19 @@ app.post('/api/accounts', function(request, response) {
     if (!valid(request)) {
         response.send("Bad HMAC");
     } else {
-        var respond = function(status){
+        var respond = function(status, code){
+            response.status(code || 200);
             response.send(JSON.stringify({
                 "account_id":request.body.account_id,
-                "status":status
+                "status":status,
+                "error": status.error
             }));
         }
-        create_account(request.body.account_id, respond);
+        if (!request.body.account_id) {
+            respond({error: "no account_id"}, 400)
+        } else {
+            create_account(request.body.account_id, respond);
+        }
     };
 });
 
