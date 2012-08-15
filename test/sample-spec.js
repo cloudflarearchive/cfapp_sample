@@ -1,6 +1,6 @@
-describe(["sample_app"], function(sample){
+describe(["countersback"], function(sample){
     it("should have a name", function(){
-        expect(sample.name).toEqual("Sample App");
+        expect(sample.name).toEqual("Counters Back");
     })
     it("should tell you if you won", function(){
         expect(window.lotteryWinner).toBe(false)

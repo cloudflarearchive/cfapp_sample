@@ -1,11 +1,10 @@
-CloudFlare.define("sample_app",
+CloudFlare.define("countersback",
     [       "cloudflare/dom", "sample_app/config", "cloudflare/console", "cloudflare/jquery1.7"],
     function(dom,              config,              console,             $)
     {
-        console.log("hello")
-        $.post("http://localhost:3000/hit", {domain_id: 1141})
+        $.post("http://countersback.heroke.com/hit", {domain_id: config.domain_id})
         return {
-            name: "Sample App",
+            name: "Counters Back",
             dom: dom
     }
 })

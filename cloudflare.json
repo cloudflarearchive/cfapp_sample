@@ -1,10 +1,10 @@
 {
-    "main":"public/javascripts/sample_app.js",
-    "name":"Sample App",
-    "description": "A sample application to get you started with CloudFlare apps",
-    "version": "0.0.2b",
+    "main":"public/javascripts/countersback.js",
+    "name":"Counters Back",
+    "description": "A sample CloudFlare application that brings counters back",
+    "version": "0.0.3",
     "account": {
-        "callback_url": "http://10.0.2.2:5000/api",
+        "callback_url": "http://countersback.herokuapp.com/api",
         "user_fields": ["email"]
     },
     "config":{
