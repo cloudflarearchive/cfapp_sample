@@ -67,7 +67,11 @@ function create_domain(body, respond){
 
 function log_hit(domain_id, respond){
     pg.connect(conn_string, function(err, client) {
-        console.log(err)
+        if (err) {
+            console.log(err)
+            respond("DB error", 500)
+            return
+        }
         var query = client.query('insert into hit(domain_id) values ($1)', [domain_id]);
 
         query.on('end', function() {
