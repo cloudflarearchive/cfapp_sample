@@ -72,10 +72,14 @@ function log_hit(domain_id, respond){
 
         query.on('end', function() {
             var query2 = client.query('select count(*) from hit where domain_id =  $1', [domain_id]);
-            query2.on('end', function() {
-                console.log(query2);
+            query2.on('row', function(row) {
+                respond(row.count);
+            });
+            query2.on('error', function(something) {
+                console.log(something);
                 respond("0");
             });
+
         });
 
         query.on('error', function(something) {
@@ -143,7 +147,12 @@ app.post('/hit', function(request, response) {
             count : count
         }));
     }
-    log_hit(request.body.domain_id, respond);
+
+    if (!request.body.domain_id) {
+        respond({error: "no domain_id"}, 400)
+    } else {
+        log_hit(request.body.domain_id, respond);
+    }
 });
 
 
