@@ -4,6 +4,7 @@ var crypto = require('crypto');
 var pg = require('pg');
 
 var app = express.createServer(express.logger());
+app.enable("jsonp callback");
 app.use(express.bodyParser());
 
 var conn_string = process.env.DATABASE_URL || "tcp://michael:1234@localhost/michael";
@@ -39,7 +40,6 @@ function create_account(account_id, respond){
 
 function create_domain(body, respond){
     pg.connect(conn_string, function(err, client) {
-        console.log(err)
         var query = client.query('select count(*) from domain where account_id = $1 and domain_id = $2',[body.account_id, body.domain_id]);
         query.on('error', function() {
             console.log(query)
@@ -73,23 +73,27 @@ function log_hit(domain_id, respond){
             return
         }
         var query = client.query('insert into hit(domain_id) values ($1)', [domain_id]);
+        var error;
 
         query.on('end', function() {
+            if (error) return;
+            console.log(arguments)
             var query2 = client.query('select count(*) from hit where domain_id =  $1', [domain_id]);
             query2.on('row', function(row) {
-                respond(row.count);
+                respond({count: row.count});
             });
             query2.on('error', function(something) {
                 console.log(something);
-                respond("0");
+                respond({error: "no count"});
             });
 
         });
 
         query.on('error', function(something) {
-            console.log(domain_id)
+            error = true;
+            console.log(domain_id);
             console.log(something);
-            respond("0");
+            respond({error: "no inc"});
         });
     });
 
@@ -145,22 +149,19 @@ app.post('/api/domains', function(request, response) {
     };
 });
 
-app.post('/hit', function(request, response) {
-    var respond = function(count){
-        response.send(JSON.stringify({
-            count : count
-        }));
+app.get('/hit', function(request, response) {
+    var respond = function(obj){
+        response.json(JSON.stringify(obj));
     }
-
-    if (!request.body.domain_id) {
-        respond({error: "no domain_id"}, 400)
+    if (!request.query.domain_id) {
+        respond({error: "no domain_id"})
     } else {
-        log_hit(request.body.domain_id, respond);
+        log_hit(request.query.domain_id, respond);
     }
 });
 
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT
 app.listen(port, function() {
     console.log("Listening on " + port);
 });
