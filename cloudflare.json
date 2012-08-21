@@ -19,6 +19,9 @@
             },
             "detail_page" : [
                 "./public/images/example.png"
+            ],
+            "images" : [
+                "./public/images/counter.png"
             ]
         },
         "interface": [
