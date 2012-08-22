@@ -37,7 +37,7 @@ This sample app, and the examples cited above, all include (at least) the elemen
  * App logo files (required)
  * App JavaScript file(s) (required)
  * App detail image file(s) (optional)
- * App image file(s) (coming soon; optional)
+ * App image file(s) (optional)
  * App CSS file(s) (coming soon; optional)
 
 Descriptions of the required elements follow.
@@ -69,6 +69,19 @@ You'll define the logo locations in the cloudflare.json file.
 Your App JavaScript file(s) is what gets deployed on customers' sites when they turn on the App, via cloudflare.js.
 
 [example script](https://github.com/cloudflare/cfapp_sample/blob/master/public/javascripts/sample_app.js)
+
+##App image file(s)
+
+You can add images to your cloudflare.json and have them avaliable on the CloudFlare CDN
+so you can use them in image tags, etc.
+
+    "images" : [
+        "./public/images/counter.png"
+    ]
+
+You can then get access to the image at
+
+    ajax.cloudflare.com/cdn-cgi/nexp/apps/app_key/images/counter.png
 
 #More info
 
