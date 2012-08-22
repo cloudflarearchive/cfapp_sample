@@ -7,6 +7,19 @@
         "callback_url": "http://countersback.herokuapp.com/api",
         "user_fields": ["email"]
     },
+    "billing": {
+        "type": "zone",
+        "plans":[
+            {
+                "name" : "Chowder",
+                "price": "3.20"
+            },
+            {
+                "name" : "Minestrone",
+                "price" : "6.55"
+            }
+        ]
+    },
     "config":{
         "details":{
             "Price": "priceless",
