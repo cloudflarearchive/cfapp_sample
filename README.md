@@ -44,7 +44,10 @@ Descriptions of the required elements follow.
 
 ##cloudflare.json
 
-The cloudflare.json file contains the packaging information for your application. It includes a path to your main JavaScript file, the definition for your configuration interface, and the location and nature of your non-JS assets.
+The cloudflare.json file contains the packaging information for your application.
+It includes a path to your main JavaScript file, the definition for your configuration
+interface, and the location and nature of your non-JS assets.
+It also contains information on accounts and billing.
 
 ##cloudflare.md
 
@@ -83,7 +86,26 @@ You can then get access to the image at
 
     ajax.cloudflare.com/cdn-cgi/nexp/apps/app_key/images/counter.png
 
+App image files are versioned on the CDN, so you can request, for example
+
+    ajax.cloudflare.com/cdn-cgi/nexp/apps/app_key/images/counter@0.0.1.png
+
+This will be more useful as versioning features are built that allow certain beta
+to use versions of the app other than the current version.
+
 #More info
+
+##CSS
+
+cloudflare.js does not currently load CSS files for you. You have two options for
+reliable CSS in your app.
+
+- Insert a link tag into the page, and do everything else in a callback when it loads
+- Do all your styling using Javascript.
+
+So far most partners have chosen the second option, and done their styling with
+JQuery. We are planning to add CSS loading to cloudflare.js so that this can be
+dealt with for you.
 
 ##Testing
 
