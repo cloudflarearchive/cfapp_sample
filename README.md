@@ -1,6 +1,6 @@
 #CloudFlare Apps
 
-CloudFlare's Apps platform enables developers to create and publish Javascript applications (to start) for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
+CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
 When you're ready to develop an App, the first step is to [sign up](https://www.cloudflare.com/app-signup.html) as a developer using your CloudFlare account.
 
