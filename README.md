@@ -30,17 +30,17 @@ We will evaluate your app, provide feedback and guidance, and help you publish a
 
 #Elements of a CloudFlare App repo
 
-This sample app, and the examples cited above, all include (at least) the elements listed below. Separate from the 
+This sample app, and the examples cited above, include most of the elements listed below.
 
  * cloudflare.json (required)
  * cloudflare.md (required)
  * App logo files (required)
- * App JavaScript file(s) (required)
+ * App JavaScript file (optional)
  * App detail image file(s) (optional)
  * App image file(s) (optional)
  * App CSS file(s) (coming soon; optional)
 
-Descriptions of the required elements follow.
+Descriptions of these elements follow.
 
 ##cloudflare.json
 
@@ -67,9 +67,9 @@ Required image file names
 
 You'll define the logo locations in the cloudflare.json file.
 
-##App JavaScript file(s)
+##App JavaScript file
 
-Your App JavaScript file(s) is what gets deployed on customers' sites when they turn on the App, via cloudflare.js.
+Your App JavaScript file get deployed on customers' sites when they turn on the App, via cloudflare.js, if your App includes such a script.
 
 [example script](https://github.com/cloudflare/cfapp_sample/blob/master/public/javascripts/sample_app.js)
 
