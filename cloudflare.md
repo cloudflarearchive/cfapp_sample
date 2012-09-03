@@ -20,7 +20,9 @@ For an image to appear, you need to do three things:
  1. Add the image to your repo 
  2. Reference the image in the "detail_page" section of the cloudflare.json file.
  3. Link to the image in the cloudflare.md file (this page).
- 
+
+Please limit images on the app detail page to no more than 708 pixels wide.
+
 ###Adding image to your repo
 
 Image __must__ be in PNG format and use the .png file extension.
@@ -36,7 +38,7 @@ when processing and referencing the images.
 
 Images don't track versions. Any change to an image that is
 approved will be live right away, even if the new version is
-still in beta. We recommend you change the image URL if you
+still in beta. We recommend you change the image filename if you
 change the image.
 
 ###Reference image in cloudflare.json
