@@ -6,7 +6,7 @@ require 'json'
 
 
 def post(endpoint, body)
-    address = 'http://localhost:3000/api'
+    address = 'http://localhost:5000/api'
     HTTParty.post(address + '/' + endpoint, :body => body, :output => :json, :format => :json)
 end
 
@@ -16,10 +16,15 @@ describe "The server" do
             before do
                 @response = post('accounts', {:account_id => 22})
             end
-            it "passes" do
+            it "approves the account" do
                 @response.code.should eq 200
                 ["approve", "exists"].should include JSON(@response.body)["status"]
             end
+            it "provides a login url" do
+                JSON(@response.body)["login"]["url"].should == "https://mysite.com/login"
+                JSON(@response.body)["login"]["expires"].should == "2012-09-05 23:23:56 UTC"
+            end
+
         end
 
         describe "no account id" do

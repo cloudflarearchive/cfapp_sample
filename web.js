@@ -16,22 +16,34 @@ function create_account(account_id, respond){
         var query = client.query('select count(*) from account where account_id = $1',[account_id]);
         query.on('error', function() {
             console.log(query)
-            respond("BADNESS", 500);
+            respond({status: "error"}, 500);
         });
 
         query.on('row', function(row) {
             if (row.count) {
-                respond("exists")
+                respond({
+                    status: "exists",
+                    login: {
+                        url: "https://mysite.com/login",
+                        expires: "2012-09-05 23:23:56 UTC"
+                    }
+                })
             } else {
                 var query2 = client.query('insert into account(account_id) values ($1)',[account_id]);
 
                 query2.on('end', function() {
-                    respond("approve");
+                    respond({
+                        status: "approve",
+                        login: {
+                            url: "https://mysite.com/login",
+                            expires: "2012-09-05 23:23:56 UTC"
+                        }
+                    });
                 });
 
                 query2.on('error', function() {
                     console.log(query2)
-                    respond("BADNESS", 500);
+                    respond({status:"error"}, 500);
                 });
             }
         });
@@ -112,13 +124,10 @@ app.post('/api/accounts', function(request, response) {
     if (!valid(request)) {
         response.send("Bad HMAC");
     } else {
-        var respond = function(status, code){
+        var respond = function(vals, code){
             response.status(code || 200);
-            response.send(JSON.stringify({
-                "account_id":request.body.account_id,
-                "status":status,
-                "error": status.error
-            }));
+            vals.account_id = request.body.account_id
+            response.send(JSON.stringify(vals));
         }
         if (!request.body.account_id) {
             respond({error: "no account_id"}, 400)
