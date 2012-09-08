@@ -4,6 +4,8 @@ CloudFlare's Apps platform enables developers to create and publish web applicat
 
 When you're ready to develop an App, the first step is to [sign up](https://www.cloudflare.com/app-signup.html) as a developer using your CloudFlare account.
 
+This sample repo is an important model for developers. Full documentation is at http://appdev.cloudflare.com
+
 #Live Examples
 
 Three live examples of CloudFlare Apps created by outside developers
@@ -137,7 +139,7 @@ General information about the site your module is running on.
 
 The website owner sets up an App in their [CloudFlare Apps dashboard](https://www.cloudflare.com/cloudflare-apps) -- this link only works if signed in to a CloudFlare account, and it will ask you to select which zone (domain) you'd like to configure.
 
-The simplest configuration requires nothing: the App may be turned On or Off, nothing more. Example: A Better Browser
+The simplest configuration requires nothing: the App may be turned On or Off, nothing more. Example (from an earlier version): A Better Browser
 
 ![On-Off only](./cfapp_sample/raw/master/doc/on-off-no-configuration.png "A Better Browser example - just On and Off")
 
