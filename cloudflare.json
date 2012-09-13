@@ -2,7 +2,7 @@
     "main":"public/javascripts/countersback.js",
     "name":"Counters Back",
     "description": "A sample CloudFlare application that brings counters back",
-    "version": "0.0.4a",
+    "version": "0.0.5",
     "account": {
         "callback_url": "http://countersback.herokuapp.com/api",
         "user_fields": ["email"]
