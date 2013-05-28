@@ -23,7 +23,7 @@ Note: the trailing directory in the above examples (/earthhour and /trumpet and 
 
 #Building an App
 
-CloudFlare Apps are described with a cloudflare.json file, explained to the site owner with a cloudflare.md file, and are deployed using the CommonJS-compatible module loader [cloudflare.js](js.cloudflare.com).
+CloudFlare Apps are described with a cloudflare.json file, explained to the site owner with a cloudflare.md file, and are deployed using the CommonJS-compatible module loader [cloudflare.js](http://js.cloudflare.com).
 
 To build an app, you might clone this repository, and use it as a template to create your Javascript, app description, and app configuration. When you are done, go to the CloudFlare [App Signup Page](https://cloudflare.com/app-signup)
 and submit a description of your app along with a git:// url for the repository.
