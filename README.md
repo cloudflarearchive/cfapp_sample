@@ -73,8 +73,6 @@ You'll define the logo locations in the cloudflare.json file.
 
 Your App JavaScript file get deployed on customers' sites when they turn on the App, via cloudflare.js, if your App includes such a script.
 
-[example script](https://github.com/cloudflare/cfapp_sample/blob/master/public/javascripts/sample_app.js)
-
 ##App image file(s)
 
 You can add images to your cloudflare.json and have them avaliable on the CloudFlare CDN
